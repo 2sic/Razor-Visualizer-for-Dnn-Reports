@@ -1,0 +1,1 @@
+﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="Settings.ascx.vb" Inherits="DotNetNuke.Modules.Reports.Visualizers.Razor.Settings" %>
