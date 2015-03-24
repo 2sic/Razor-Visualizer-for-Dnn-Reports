@@ -2,6 +2,7 @@
 Imports DotNetNuke.Modules.Reports.Extensions
 Imports System.Collections.Generic
 Imports DotNetNuke.Entities.Modules
+Imports DotNetNuke.Security
 
 Namespace DotNetNuke.Modules.Reports.Visualizers.Razor
     Partial Class Settings
@@ -12,6 +13,8 @@ Namespace DotNetNuke.Modules.Reports.Visualizers.Razor
         Protected Sub Page_Init (ByVal sender As Object, ByVal e As EventArgs) Handles Me.Init
             LoadRazorSettingsControl()
             EnsureEditScriptControlIsRegistered()
+            System.Web.HttpContext.Current.Response.Write("Found: " + TypeName(RazorSettings))
+
         End Sub
 
         Public Overrides Sub LoadSettings (ByVal Settings As Dictionary(Of String, String))
@@ -33,7 +36,7 @@ Namespace DotNetNuke.Modules.Reports.Visualizers.Razor
         End Sub
 
         Private Sub LoadRazorSettingsControl()
-            RazorSettings = CType (LoadControl ("~/DesktopModules/RazorModules/RazorHost/Settings.ascx"), RazorHost.Settings)
+            RazorSettings = CType(LoadControl("~/DesktopModules/RazorModules/RazorHost/Settings.ascx"), RazorHost.Settings)
             RazorSettings.ModuleConfiguration = ParentModule.ModuleConfiguration
             RazorSettings.LocalResourceFile = Me.LocalResourceFile
             Controls.Add (RazorSettings)

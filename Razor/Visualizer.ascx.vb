@@ -1,6 +1,9 @@
 ﻿Imports DotNetNuke.Web.Razor
 Imports DotNetNuke.Entities.Modules
 Imports System.Collections.Generic
+Imports DotNetNuke.Security
+Imports DotNetNuke.Modules.Reports.Visualizers
+
 
 Namespace DotNetNuke.Modules.Reports.Visualizers.Razor
     Partial Class Visualizer
@@ -18,15 +21,17 @@ Namespace DotNetNuke.Modules.Reports.Visualizers.Razor
                     Return String.Empty
                 End Get
             End Property
+
         End Class
 
         Private RazorHost As RazorReportHost
 
-        Protected Sub Page_Load (ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
+        Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
+
             ParentModule.Actions.Add(Me.ParentModule.ModuleContext.GetNextActionID, Localization.GetString("EditContent.Action", Me.LocalResourceFile), _
                                       "AddContent.Action", "", "edit.gif", Me.ParentModule.EditUrl("EditRazorScript"), False, SecurityAccessLevel.Host, True, False)
             RazorHost = New RazorReportHost
-            Me.Controls.Add (RazorHost)
+            Me.Controls.Add(RazorHost)
             RazorHost.ModuleContext.Configuration = Me.ParentModule.ModuleConfiguration
             DataBind()
         End Sub
